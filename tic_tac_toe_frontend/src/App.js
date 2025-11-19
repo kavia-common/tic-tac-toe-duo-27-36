@@ -12,7 +12,11 @@ function resetGame() {
   window.location.reload();
 }
 
-// PUBLIC_INTERFACE
+/**
+ * PUBLIC_INTERFACE
+ * Main App component for Tic Tac Toe Duo.
+ * Passes the optional demo onLogout handler to Navbar.
+ */
 function App() {
   const [theme, setTheme] = useState('light');
 
@@ -26,9 +30,16 @@ function App() {
     setTheme(prevTheme => prevTheme === 'light' ? 'dark' : 'light');
   };
 
+  // Demo logout handler (replace with real handler in production)
+  const handleDemoLogout = () => {
+    // eslint-disable-next-line no-alert
+    alert("Demo: You clicked logout!");
+    // console.log("Demo: Logged out."); // Alternative if alert not wanted.
+  };
+
   return (
     <div className="App">
-      <Navbar onReset={resetGame} />
+      <Navbar onReset={resetGame} onLogout={handleDemoLogout} />
       <header className="App-header">
         <button
           className="theme-toggle"
