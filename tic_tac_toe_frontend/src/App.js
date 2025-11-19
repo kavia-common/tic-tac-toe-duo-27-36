@@ -35,6 +35,8 @@ function resetGame() {
  */
 function App() {
   const [theme, setTheme] = useState('light');
+  // NEW: State demonstrating the 'hide' prop for Sidebar
+  const [sidebarHidden, setSidebarHidden] = useState(false);
 
   // Effect to apply theme to document element
   useEffect(() => {
@@ -55,9 +57,11 @@ function App() {
 
   return (
     <div className="App" style={{ position: "relative" }}>
-      {/* Floating Sidebar for quick actions/navigation */}
+      {/* 
+        Floating Sidebar for quick actions/navigation.
+        Demo: Toggle the 'hide' prop below; in production this could be dynamic.
+      */}
       <Sidebar
-        // Example items; in production, could be dynamic or via context/menu
         items={[
           { id: "home", label: "Home", icon: iconList.home },
           { id: "about", label: "About", icon: iconList.info },
@@ -69,8 +73,32 @@ function App() {
           else if (id === "about") window.alert("About Sidebar Button!");
           else window.alert(`Sidebar item "${id}" selected`);
         }}
-        // Remove the collapsed prop to default uncollapsed; or pass collapsed={true}
+        // Demo: toggle this `hide` prop to test visibility
+        hide={sidebarHidden}
       />
+      {/* Simple demo button to toggle the Sidebar hide prop */}
+      <button
+        style={{
+          position: "absolute",
+          top: 16,
+          left: 90,
+          zIndex: 1002,
+          fontSize: "0.93rem",
+          padding: "0.45em 1.05em",
+          marginBottom: "0.45em",
+          borderRadius: "7px",
+          background: "#3b82f6",
+          color: "#fff",
+          border: "none",
+          boxShadow: "0 1px 3px rgba(59,130,246,0.11)",
+          cursor: "pointer",
+        }}
+        onClick={() => setSidebarHidden(h => !h)}
+        aria-label={sidebarHidden ? "Show sidebar" : "Hide sidebar"}
+      >
+        {sidebarHidden ? "Show Sidebar" : "Hide Sidebar"}
+      </button>
+
       <Navbar onReset={resetGame} onLogout={handleDemoLogout} />
       <header className="App-header">
         <button

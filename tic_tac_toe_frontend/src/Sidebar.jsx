@@ -16,9 +16,14 @@ function Sidebar({
   items,
   onSelect,
   position = "left",
-  collapsed: collapsedProp = false
+  collapsed: collapsedProp = false,
+  hide = false
 }) {
+  // Hooks must always be called, even if the sidebar is hidden
   const [collapsed, setCollapsed] = useState(collapsedProp);
+
+  // If the Sidebar should be hidden, render nothing
+  if (hide) return null;
 
   // Toggles the sidebar between collapsed/expanded
   const handleToggle = () => setCollapsed((c) => !c);
@@ -87,6 +92,13 @@ Sidebar.propTypes = {
   onSelect: PropTypes.func.isRequired,
   position: PropTypes.oneOf(["left", "right"]),
   collapsed: PropTypes.bool,
+  hide: PropTypes.bool, // Optional hide prop
+};
+
+Sidebar.defaultProps = {
+  position: "left",
+  collapsed: false,
+  hide: false,
 };
 
 export default Sidebar;
